@@ -169,8 +169,7 @@ export const AllUsers = () => {
             isAdmin : isNewAdmin
         })
         if(data.data){
-            try {
-              let res;
+              let res = '';
               !String(newProfile).includes('vecteezy') && (res =  await UploadImage(newProfile))
                 if(res.data){
                   if(res.data.secure_url){
@@ -185,15 +184,10 @@ export const AllUsers = () => {
                   }
                 }else{
                    let response = await Axios.put(`/auth/user/${data.data._id}`,{
-                      profile : newProfile
+                      profile : 'https://static.vecteezy.com/system/resources/previews/020/911/740/original/user-profile-icon-profile-avatar-user-icon-male-icon-face-icon-profile-icon-free-png.png'
                       })
                         response.data && setLoading4(false)
                 }
-            } catch (error) {
-              setError3(error.response.data.error)
-              Reloader2()
-              Resetter2()
-            }
         }
         setNewProfile('')
         setNewFirstname('')
@@ -201,10 +195,11 @@ export const AllUsers = () => {
         setNewPassword('')
         setNewEmail('')
         setNewUsername('')
-         handleClose()
+        handleClose()
         Data()
       } catch (error) {
-        setError3(error.response.data.error)
+        // setError3(error.response.data.error)
+        console.log(error)
         Reloader2()
         Resetter2()
       }
