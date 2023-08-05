@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*,*::before,*::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    transition: .5s all linear;
+}
+*::-webkit-scrollbar{
+    width: 0px;
+}
+body{
+    background:#0f0c29;
+}
+.container{
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('https://cdn.wallpapersafari.com/85/13/zjCarX.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.loginContainer{
+    border-radius: 60% / 20%;
+    background: #fff;
+}
+.transition_cubic{
+    transition: 1s all cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.error{
+    transition: 1s all cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+tbody tr:nth-child(2n+1){
+    background: rgba(0,0,0,.1);
+    border-bottom: solid 1px #009866;
+    box-shadow: 1px 1px 0 0 #0f0c29;
+}
+tbody tr td{
+    padding: 1px 0;
+    color : #0f0c29;
+    letter-spacing : .1rem;
+}
+thead tr{
+    background: #0f0c29;
+    color: #fff;
+}
+.drop{
+    backdrop-filter: blur(10px);
+}
