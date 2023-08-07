@@ -1,6 +1,6 @@
 import axios from 'axios'
 export let Axios = axios.create({
-    baseURL : 'https://oose-ass.onrender.com/api',
+    baseURL : 'http://localhost:5000/api',
     withCredentials : true
 })
 export let UploadImage = async (url) => {

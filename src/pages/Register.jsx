@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {BsEye,BsEyeSlash} from 'react-icons/bs'
 import {BiSolidMessageAltError} from 'react-icons/bi'
 import { Axios, UploadImage } from '../Axios/Axios'
@@ -26,6 +26,7 @@ export const Register = () => {
   let [error1,setError1] = useState('')
   let [loginUsernameEmail,setLoginUsernameEmail] = useState(null)
   let [loginPassword,setLoginPassword] = useState(null)
+  let [data,setData] = useState([])
   let dispatch = useDispatch();
   let Handler = (page) => {
     if(page === 'register'){
@@ -36,7 +37,7 @@ export const Register = () => {
     }else{
       setOpenLogin(true)
       setOpenReg(false)
-      setProfile('')
+      // setProfile('')
       setFirstname('')
       setLastname('')
       setPassword('')
@@ -44,6 +45,13 @@ export const Register = () => {
       setUsername('')
     }
   }
+    let Data = async () => {
+      let res = await Axios.get('/auth');
+      setData(res.data)
+    }
+    useEffect(() => {
+      Data()
+    },[])
   let HandleRegister = async () => {
       try {
         setLoading1(true)
@@ -115,7 +123,7 @@ export const Register = () => {
   }
   let Reloader2 = () => {
     setTimeout(() => {
-      setLoading1(false)
+      setLoading2(false)
     },1000)
   }
   let Resetter2 = () => {
@@ -125,6 +133,7 @@ export const Register = () => {
   }
   let navigate = useNavigate('')
   let HandleLogin = async  () => {
+    setLoading2(true)
     try {
       let res = await Axios.post('/auth/login',{
         useEmail : loginUsernameEmail,
@@ -132,6 +141,7 @@ export const Register = () => {
       })
       dispatch(LOGIN({username : res.data.data.username, profile : res.data.data.profile, isAdmin : res.data.data.isAdmin}))
       res.data && navigate('/')
+      setLoading2(false)
     } catch (error) {
       setError2(error.response.data.error)
       Reloader2()
@@ -157,8 +167,8 @@ export const Register = () => {
             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className='focus:border-[#009866] p-3 border-solid border-[#0f0c29]/20 rounded-md outline-none text-sm tracking-wider border-[1px] my-1 w-full placeholder:text-black/40' placeholder='email' />
             <li onClick={() => setShowPass(!showPass)} className='w-10 h-10 flex top-[245px] right-4 items-center justify-center hover:bg-black/10 cursor-pointer list-none rounded-full absolute'>{showPass ? <BsEyeSlash /> : <BsEye />}</li>
             <div className='flex items-center justify-start w-full my-2'>
-              <input value={isAdmin} onChange={(e) => setIsAdmin(e.currentTarget.checked)} type="checkbox" id='isadmin' className='cursor-pointer' />
-              <label htmlFor="isadmin" className='font-Poppins text-xs cursor-pointer ml-2'>isAdmin</label>
+                <input value={isAdmin} onChange={(e) => setIsAdmin(e.currentTarget.checked)} type="checkbox" id='isadmin' className='cursor-pointer' />
+                <label htmlFor="isadmin" className='font-Poppins text-xs cursor-pointer ml-2'>isAdmin</label>
             </div>
             <button onClick={() => HandleRegister()} className='bg-[#0f0c29] p-3 rounded-3xl z-[999] mx-auto text-white/80 w-9/12 my-2 tracking-widest flex items-center justify-center'>{loading1 ? <PacmanLoader color={color} loading={loading1} size={11} aria-label="Loading Spinner" data-testid="loader"/> : 'Sign Up'}</button>
           <button onClick={() => Handler('login')} className='text-xs my-2 text-black/60 font-light tracking-wider'>Already have an account ? <span className='hover:text-black'>Sign in</span></button>

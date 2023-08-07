@@ -112,6 +112,8 @@ export const AllUsers = () => {
         }
     } catch (error) {
       setError(error.response.data.error)
+      Reloader()
+      Resetter()
     }
   }
     let Resetter = () => {
@@ -127,25 +129,28 @@ export const AllUsers = () => {
   let navigate = useNavigate()
   let dispatcher = useDispatch()
   let DeleteUser = async (dataUser) => {
-    setLoading3(true)
-    let res = await Axios.delete(`/auth/${dataUser?._id}`)
-    if(res.data){
-      if(user.username === dataUser.username){
-        dispatcher(LOGOUT({}))
-        navigate('/auth')
-        dispatcher(SIGNIN({type : true}))
-      }else{
-        Data()
-        if(data?.length === 0){
-          dispatcher(LOGOUT({}))
-          navigate('/auth')
-          dispatcher(SIGNIN({type : false}))
-        }else{
-          Data()
+    let Anwser = prompt('Are you sure you want to delete this user ? Y/y or N/n')
+    if(String(Anwser).toLocaleUpperCase() === 'Y'){
+      setLoading3(true)
+        let res = await Axios.delete(`/auth/${dataUser?._id}`)
+        if(res.data){
+          if(user.username === dataUser.username){
+            dispatcher(LOGOUT({}))
+            navigate('/auth')
+            dispatcher(SIGNIN({type : true}))
+          }else{
+            Data()
+            if(data?.length === 0){
+              dispatcher(LOGOUT({}))
+              navigate('/auth')
+              dispatcher(SIGNIN({type : false}))
+            }else{
+              Data()
+            }
+          }
         }
-      }
+        setLoading3(false) 
     }
-    setLoading3(false) 
   }
   let AddUser = () => {
     setFetch(false)
@@ -198,8 +203,7 @@ export const AllUsers = () => {
         handleClose()
         Data()
       } catch (error) {
-        // setError3(error.response.data.error)
-        console.log(error)
+        setError3(error.response.data.error)
         Reloader2()
         Resetter2()
       }
@@ -224,9 +228,9 @@ export const AllUsers = () => {
 
       <Modal show={show} onHide={handleClose} className='mt-[1%]'>
         <Modal.Header closeButton>
-          <Modal.Title className='w-full flex items-center justify-between'>Add User{fetch ? <h1 className={`${error ? 'scale-100' : 'scale-0'} absolute top-5 right-10 font-Poppins flex items-center justify-start error origin-center text-red-600 text-xs font-bold text-left my-1`}><BiSolidMessageAltError className={'mr-1'} />{error} !</h1> :  <h1 className={`${error3 ? 'scale-100' : 'scale-0'} absolute top-5 right-10 font-Poppins flex items-center justify-start error origin-center text-red-600 text-xs font-bold text-left my-1`}><BiSolidMessageAltError className={'mr-1'} />{error3} !</h1>}</Modal.Title>
+          <Modal.Title className='w-full flex items-center justify-between'>{!fetch ? 'Add User': 'Update User'}{fetch ? <h1 className={`${error ? 'scale-100' : 'scale-0'} absolute top-5 right-10 font-Poppins flex items-center justify-start error origin-center text-red-600 text-xs font-bold text-left my-1`}><BiSolidMessageAltError className={'mr-1'} />{error} !</h1> :  <h1 className={`${error3 ? 'scale-100' : 'scale-0'} absolute top-5 right-10 font-Poppins flex items-center justify-start error origin-center text-red-600 text-xs font-bold text-left my-1`}><BiSolidMessageAltError className={'mr-1'} />{error3} !</h1>}</Modal.Title>
         </Modal.Header>
-        <Modal.Body className='text-black flex items-center justify-center'>
+        <Modal.Body className='text-black flex items-center justify-center flex-col'>
           {(!loading && fetch) ? <form action="" className='flex items-center justify-center flex-col w-10/12 mx-auto'>
             <label htmlFor="profile" className='w-14 h-14 rounded-full my-3 border-solid border-black/50 border-[1px] flex items-center justify-center'>
               <img className='w-full h-full rounded-full object-cover' src={profile && (String(profile).includes('.com') ? profile : URL.createObjectURL(profile))} alt="" />
@@ -271,7 +275,7 @@ export const AllUsers = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-        <table className='w-[70%] mx-auto text-center font-Poppins font-light'>
+        <table className='w-[70%] relative mx-auto text-center font-Poppins font-light'>
           <thead>
             <tr>
               <th className='py-2 font-light tracking-widest'>Profile</th>
@@ -280,6 +284,7 @@ export const AllUsers = () => {
               <th className='py-2 font-light tracking-widest'>Username</th>
               <th className='py-2 font-light tracking-widest'>Email-Address</th>
               <th className={'py-2 font-light tracking-widest'}>Actions</th>
+              {user?.isAdmin && <li onClick={() => setEm(!em)} className='w-8 h-8 flex top-[5px] right-36 items-center justify-center hover:bg-white/20 cursor-pointer list-none rounded-full absolute'>{user.isAdmin && em ? <BsEyeSlash /> : <BsEye />}</li>}
             </tr>
           </thead>
           <tbody>
@@ -295,10 +300,9 @@ export const AllUsers = () => {
                       <td>{info.firstname}</td>
                       <td>{info?.lastname}</td>
                       <td>{info?.username}</td>
-                      <td className='relative'>{
+                      <td>{
                         user.isAdmin && em ? info?.email : String(info?.email).substring(0,3)+Array.from(String(info?.email).substring(0,7)).fill('*').concat('**').join('').concat('.com') 
                       }
-                      <li onClick={() => setEm(!em)} className='w-8 h-8 flex top-[8px] right-3 items-center justify-center hover:bg-black/10 cursor-pointer list-none rounded-full absolute'>{user.isAdmin && em ? <BsEyeSlash /> : <BsEye />}</li>
                       </td>
                       {user.isAdmin ? (<td className='flex items-center justify-center h-[48px]'>
                             <button onClick={() => DeleteUser(info)} className='w-7 h-7 flex items-center justify-center hover:bg-black/20 cursor-pointer rounded-full'>{loading3 ? <ClipLoader color={'#000'} loading={loading3} size={16} aria-label="Loading Spinner" data-testid="loader"/> : <MdDelete />}</button>

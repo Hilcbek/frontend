@@ -27,9 +27,10 @@ export const Nav = () => {
     <div className='w-full'>
         <div className='list-none py-2 w-11/12 mx-auto flex items-center justify-between text-white font-light font-Poppins'>
           <ul className='flex items-center justify-start'>
-            <Link to={'/'} className='font-bold text-3xl'>OOSE - ASSIGNMENT - User Registeration System</Link>
+            <Link to={'/'} className='font-bold text-3xl'>User Registeration System</Link>
             {isAdmin && <p className='bg-white ml-4 font-bold rounded-md flex items-center justify-start p-2 text-[#009866]'><MdAdminPanelSettings className='mr-2' />{'Admin!'}</p>}
           </ul>
+          {/* //OOSE - ASSIGNMENT -  */}
           <div className='flex items-center justify-start'>
             {
               !username ? <ul className='flex items-center justify-start'>
@@ -48,7 +49,7 @@ export const Nav = () => {
                     <img className='w-full h-full rounded-full object-cover' src={profile} alt="" />
                   </li>
                 </abbr>
-                <button onClick={() => Logout()} className='font-semibold font-Poppins group overflow-hidden cursor-pointer tracking mx-2 p-3 bg-white ml-2 relative text-[#0f0c29] w-28 rounded-md'><p className='group-hover:-left-96 absolute error left-3 top-[6px]'>{`Hello ! ${username}`}</p><p className='group-hover:right-8 top-1 error absolute -right-96 flex items-center justify-start'><IoMdLogOut className={'mr-1'} />Logout</p></button>
+                <button onClick={() => Logout()} className='font-semibold font-Poppins group overflow-hidden cursor-pointer tracking mx-2 p-[20px] bg-white ml-2 relative text-[#0f0c29] w-[100px] rounded-md'><p className='group-hover:-left-96 absolute error left-[9px] top-[9px]'>{`Hello ! ${username}`}</p><p className='group-hover:right-4 top-2 error absolute -right-96 flex items-center justify-start'><IoMdLogOut className={'mr-1'} />Logout</p></button>
               </ul>
             }
           </div>
