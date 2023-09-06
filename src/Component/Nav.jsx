@@ -6,6 +6,7 @@ import { BiSolidUserPlus } from 'react-icons/bi'
 import {IoLogIn} from 'react-icons/io5'
 import {IoMdLogOut} from 'react-icons/io'
 import { MdAdminPanelSettings } from 'react-icons/md'
+import { Axios } from '../Axios/Axios'
 export const Nav = () => {
   let {profile,username,isAdmin} = useSelector((state) => state.user)
   let dispatcher = useDispatch()
@@ -13,6 +14,8 @@ export const Nav = () => {
   let Logout = () => {
     navigate('/auth')
     dispatcher(LOGOUT({}))
+    let res = Axios.post(`/auth/logout`)
+    console.log(res.data.data)
     dispatcher(SIGNIN({type : true}))
   }
   let handleRoute = (sign) => {
@@ -49,7 +52,7 @@ export const Nav = () => {
                     <img className='w-full h-full rounded-full object-cover' src={profile} alt="" />
                   </li>
                 </abbr>
-                <button onClick={() => Logout()} className='font-semibold font-Poppins group overflow-hidden cursor-pointer tracking mx-2 p-[20px] bg-white ml-2 relative text-[#0f0c29] w-[100px] rounded-md'><p className='group-hover:-left-96 absolute error left-[9px] top-[9px]'>{`Hello ! ${username}`}</p><p className='group-hover:right-4 top-2 error absolute -right-96 flex items-center justify-start'><IoMdLogOut className={'mr-1'} />Logout</p></button>
+                <button onClick={() => Logout()} className='font-semibold font-Poppins group overflow-hidden cursor-pointer tracking mx-2 p-[19px] bg-white ml-2 relative text-[#0f0c29] w-[100px] rounded-md'><p className='group-hover:-left-96 absolute error left-[9px] top-[9px]'>{`Hello ! ${username}`}</p><p className='group-hover:right-4 top-2 error absolute -right-96 flex items-center justify-start'><IoMdLogOut className={'mr-1'} />Logout</p></button>
               </ul>
             }
           </div>

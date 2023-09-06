@@ -301,7 +301,7 @@ export const AllUsers = () => {
                       <td>{info?.lastname}</td>
                       <td>{info?.username}</td>
                       <td>{
-                        user.isAdmin && em ? info?.email : String(info?.email).substring(0,3)+Array.from(String(info?.email).substring(0,7)).fill('*').concat('**').join('').concat('.com') 
+                        user.isAdmin && em ? info?.email : String(info?.email).substring(0,2)+Array.from(String(info?.email).substring(0,9)).fill('*').concat('**').join('').concat('.com') 
                       }
                       </td>
                       {user.isAdmin ? (<td className='flex items-center justify-center h-[48px]'>

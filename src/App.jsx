@@ -1,5 +1,5 @@
 import React from "react"
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import { Nav } from "./Component/Nav"
 import { Footer } from "./Component/Footer"
 import { AllUsers } from "./pages/AllUsers"
@@ -16,8 +16,9 @@ function App() {
       <BrowserRouter>
         <Nav />
         <Routes>
-          <Route path="/" element={username ? <AllUsers /> : <Register />} />
-          <Route path="/auth" element={username ? <AllUsers/> : <Register />} />
+          <Route path="/" element={username ? <AllUsers /> : <Navigate to={'/auth'} /> } />
+          <Route path="/auth" element={username ? <Navigate to={'/'} /> : <Register /> } />
+          <Route path="/auth" element={username ? <AllUsers/> : <Navigate to={'/auth'} /> } />
           <Route path="/about" element={<AboutAss/>} />
         </Routes>
         <Footer />
