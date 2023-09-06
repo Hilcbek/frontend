@@ -51,7 +51,7 @@ export const Nav = () => {
                     <img className='w-full h-full rounded-full object-contain' src={profile} alt="" />
                   </li>
                 </abbr>
-                <button onClick={() => Logout()} className='font-semibold font-Poppins group overflow-hidden cursor-pointer tracking mx-2 p-[19px] bg-white ml-2 relative text-[#0f0c29] w-[100px] rounded-md'><p className='group-hover:-left-96 absolute error left-[9px] top-[9px]'>{`Hello ! ${username}`}</p><p className='group-hover:right-4 top-2 error absolute -right-96 flex items-center justify-start'><IoMdLogOut className={'mr-1'} />Logout</p></button>
+                <button onClick={() => Logout()} className='font-semibold font-Poppins group overflow-hidden cursor-pointer tracking mx-2 p-[19px] bg-white ml-2 relative text-[#0f0c29] w-[100px] rounded-md'><p className='group-hover:-left-96 text-xs absolute error left-[9px] top-[9px]'>{`Hello ! ${username}`}</p><p className='group-hover:right-4 top-2 error absolute -right-96 flex items-center justify-start'><IoMdLogOut className={'mr-1'} />Logout</p></button>
               </ul>
             }
           </div>
