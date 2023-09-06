@@ -294,7 +294,7 @@ export const AllUsers = () => {
                   <tr className='p-0'>
                       <td>
                         <div className='w-12 h-12 rounded-full'>
-                          <img className='w-full h-full object-cover rounded-full' src={info?.profile} />
+                          <img className='w-full h-full object-contain rounded-full' src={info?.profile} />
                         </div>
                       </td>
                       <td>{info.firstname}</td>
