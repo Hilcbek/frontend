@@ -233,7 +233,7 @@ export const AllUsers = () => {
         <Modal.Body className='text-black flex items-center justify-center flex-col'>
           {(!loading && fetch) ? <form action="" className='flex items-center justify-center flex-col w-10/12 mx-auto'>
             <label htmlFor="profile" className='w-14 h-14 rounded-full my-3 border-solid border-black/50 border-[1px] flex items-center justify-center'>
-              <img className='w-full h-full rounded-full object-cover' src={profile && (String(profile).includes('.com') ? profile : URL.createObjectURL(profile))} alt="" />
+              <img className='w-full h-full rounded-full object-contain' src={profile && (String(profile).includes('.com') ? profile : URL.createObjectURL(profile))} alt="" />
               <input required onChange={(e) => setProfile(e.target.files[0])} className='hidden' type="file" name="" id="profile" />
             </label>
             <div className='w-full flex items-center justify-between'>
@@ -247,7 +247,7 @@ export const AllUsers = () => {
             !fetch && (
               <form action="" className='flex items-center justify-center flex-col w-10/12 mx-auto'>
               <label htmlFor="profile" className='w-14 h-14 rounded-full my-3 border-solid border-black/50 border-[1px] flex items-center justify-center'>
-                <img className='w-full h-full rounded-full object-cover' src={newProfile && (String(newProfile).includes('vecteezy') ? newProfile : URL.createObjectURL(newProfile))} alt="" />
+                <img className='w-full h-full rounded-full object-contain' src={newProfile && (String(newProfile).includes('vecteezy') ? newProfile : URL.createObjectURL(newProfile))} alt="" />
                 <input required onChange={(e) => setNewProfile(e.target.files[0])} className='hidden' type="file" name="" id="profile" />
               </label>
               <div className='w-full flex items-center justify-between'>
