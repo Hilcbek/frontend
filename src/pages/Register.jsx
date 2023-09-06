@@ -154,7 +154,7 @@ export const Register = () => {
         <div className={`${openReg ? 'right-8' : 'right-[-110%]'} error w-10/12 mb-2 flex items-center justify-center flex-col absolute`}>
           <h1 className='text-black text-4xl font-extralight tracking-widest under'>Sign Up</h1>
             <label htmlFor="profile" className='cursor-pointer w-14 h-14 rounded-full my-1 border-solid border-black/50 border-[1px] flex items-center justify-center'>
-              <img className='w-full rounded-full h-full object-contain' src={profile && (!String(profile).includes('.vecteezy') ? URL.createObjectURL(profile) : profile)} alt="" />
+              <img className='w-full rounded-full h-full object-cover' src={profile && (!String(profile).includes('.vecteezy') ? URL.createObjectURL(profile) : profile)} alt="" />
               <input required onChange={(e) => setProfile(e.target.files[0])} className='hidden' type="file" name="" id="profile" />
             </label>
             <h1 className={`${error1 ? 'scale-100' : 'scale-0'} w-full absolute top-28 left-10 font-Poppins flex items-center justify-start error origin-center text-red-600 text-xs font-bold text-left my-1`}><BiSolidMessageAltError className={'mr-1'} />{error1} !</h1>
